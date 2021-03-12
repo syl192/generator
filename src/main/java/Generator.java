@@ -15,8 +15,9 @@ import java.util.List;
 public class Generator {
 
     public static void main(String[] args) {
+        String currentPath = System.getProperty("user.dir");
         String tables = "inquiry_visit,inquiry_card";
-        final String savePath = System.getProperty("user.dir") + "/campocloud-inquiry-biz";
+        final String savePath = currentPath + "/campocloud-inquiry-biz";
         String parent = "com.campo.campocloud.user.api.circle";
         String dbUrl = "jdbc:mysql://127.0.0.1:3306/campocloud-inquiry";
         String dbUsername = "root";

@@ -70,6 +70,8 @@ package ${package.Entity};
             @TableId(value = "${field.name}", type = IdType.${idType})
         <#elseif field.convert>
             @TableId("${field.name}")
+        <#else >
+            @TableId(type = IdType.INPUT)
         </#if>
     <#-- 普通字段 -->
     <#elseif field.fill??>
