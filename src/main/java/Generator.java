@@ -39,7 +39,6 @@ public class Generator {
         /*<!-- TODO 以下代码为自动生成配置  -->*/
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         gc.setOutputDir(savePath + "/src/main/java");

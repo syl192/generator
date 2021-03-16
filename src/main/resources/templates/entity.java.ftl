@@ -73,6 +73,7 @@ package ${package.Entity};
         <#else >
             @TableId(type = IdType.INPUT)
         </#if>
+
     <#-- 普通字段 -->
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
