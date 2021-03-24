@@ -33,23 +33,21 @@
         </sql>
     </#if>
     <!-- 动态插入 -->
-    <#if baseResultMap>
-        <sql id="dynamicInsert">
-            INSERT INTO ${table.name} (
-            <trim suffixOverrides=",">
-                <#list table.fields as field>
-                    <if test='${field.propertyName} != null '>${field.name},</if>
-                </#list>
-            </trim>
-            ) VALUES(
-            <trim suffixOverrides=",">
-                <#list table.fields as field>
-                    <if test='${field.propertyName} != null '>${field.propertyName},</if>
-                </#list>
-            </trim>
-            )
-        </sql>
-    </#if>
+    <insert id="dynamicInsert">
+        INSERT INTO ${table.name} (
+        <trim suffixOverrides=",">
+            <#list table.fields as field>
+                <if test='${field.propertyName} != null '>${field.name},</if>
+            </#list>
+        </trim>
+        ) VALUE (
+        <trim suffixOverrides=",">
+            <#list table.fields as field>
+                <if test='${field.propertyName} != null '><#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse>,</if>
+            </#list>
+        </trim>
+        )
+    </insert>
 
     <!--int deleteByPrimaryKeys(@Param("keys") List<primaryKeyType> list, ...)> -->
     <delete id="deleteByPrimaryKeys">
