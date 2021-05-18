@@ -31,9 +31,11 @@
             ${table.fieldNames}
         </sql>
         
-        <sql id="${table.name}_group_list">
-            <#list table.fields as field><#if field.keyFlag>${field.name}</#if><#if !field.keyFlag><#noparse>any_value(</#noparse>${field.name}<#noparse>)</#noparse> ${field.name}</#if>,</#list>
-        </sql>
+        <"${table.name}_group_by_list">
+            <#list table.fields as field>
+                 <#if field.keyFlag>${field.name}</#if><#if !field.keyFlag><#noparse>any_value(</#noparse>${field.name}<#noparse>)</#noparse> ${field.name}</#if>,
+            </#list>
+        </>
         
     <!-- 动态插入 -->
     <insert id="dynamicInsert">
