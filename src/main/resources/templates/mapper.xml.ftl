@@ -23,15 +23,18 @@
             </#list>
         </resultMap>
     </#if>
-    <#if baseColumnList>
-        <!-- 通用查询结果列 -->
+        <!-- 通用查询结果 -->
         <sql id="${table.name}_list">
             <#list table.commonFields as field>
                 ${field.name},
             </#list>
             ${table.fieldNames}
         </sql>
-    </#if>
+        
+        <sql id="${table.name}_group_list">
+            <#list table.fields as field><#if field.keyFlag>${field.name}</#if><#if !field.keyFlag><#noparse>any_value(</#noparse>${field.name}<#noparse>)</#noparse> ${field.name}</#if>,</#list>
+        </sql>
+        
     <!-- 动态插入 -->
     <insert id="dynamicInsert">
         INSERT INTO ${table.name} (
