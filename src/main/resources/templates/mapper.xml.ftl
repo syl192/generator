@@ -66,6 +66,16 @@
             <otherwise> AND name = <#noparse>#{</#noparse>name3<#noparse>}</#noparse> </otherwise>
         </choose>
     </delete>
+    
+    <update id="dynamicUpdateByPrimaryKey">
+        UPDATE ${table.name}
+        <trim prefix="SET" suffixOverrides=",">
+            <#list table.fields as field><#if !field.keyFlag>
+                <if test='${field.propertyName} != null '>${field.name} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>},</#noparse></if>
+            </#if></#list>
+        </trim>
+        WHERE <#list table.fields as field><#if field.keyFlag>${field.name} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse></#if></#list>
+    </update>
 
     <!--int updateBatch(List<${entity}> list)> -->
     <update id="dynamicUpdateBatchByPrimaryKeys">
@@ -86,16 +96,6 @@
         WHERE <#list table.fields as field><#if field.keyFlag>${field.name} IN
             <foreach collection="list" open="(" close=")" separator="," item="item" index=""> <#noparse>#{item.</#noparse>${field.propertyName}<#noparse>}</#noparse> </foreach>
         </#if></#list>
-    </update>
-
-    <update id="dynamicUpdateByPrimaryKey">
-        UPDATE ${table.name}
-        <trim prefix="SET" suffixOverrides=",">
-            <#list table.fields as field><#if !field.keyFlag>
-                <if test='${field.propertyName} != null '>${field.name} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>},</#noparse></if>
-            </#if></#list>
-        </trim>
-        WHERE <#list table.fields as field><#if field.keyFlag>${field.name} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse></#if></#list>
     </update>
 
 </mapper>
